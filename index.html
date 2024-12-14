@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search List | Bibek Chand Sah</title>
+    <!-- fav icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
+    <link rel="manifest" href="assets/favicon/site.webmanifest" />
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico" />
+    <meta name="apple-mobile-web-app-title" content="Search List" />
+    <meta name="msapplication-TileColor" content="#2218a7">
+    <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#2218a7">
+
+    <!-- Provide a brief description of your page -->
+    <meta name="description" content="A collection of links to all the webpages that bibekchandsah have created.">
+    <meta name="search.description"
+        content="bibekchandsah bcs bibekchandsah bibeksha web-development front-end development" />
+    <!-- Specify keywords related to your content -->
+    <meta name="keywords"
+        content="webpage list, project links, personal webpages, bibek sha, bibekchandsah, bibekchandsah, web-development, resources, bibeksha10550 bibekchandsah">
+    <!-- Define the author of the page -->
+    <meta name="author" content="Bibek Chand Sha">
+    <!-- Define the language of the content -->
+    <meta name="language" content="en">
+    <!-- Canonical URL to specify the preferred version of the page -->
+    <link rel="canonical" href="https://bibekchandsah.github.io/bibekchandsah">
+    <!-- Open Graph meta tags for social media sharing -->
+    <meta property="og:title" content="Search List">
+    <meta property="og:description"
+        content="A collection of links to all the webpages that bibekchandsah have created.">
+    <meta property="og:image" content="https://bibekchandsah.github.io/bibekchandsah/assets/images/BCS_Full_Share.png">
+    <meta property="og:url" content="https://bibekchandsah.github.io/bibekchandsah">
+    <meta property="og:type" content="website">
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <!--     <meta name="twitter:site" content="@YourTwitterHandle"> Replace with your Twitter handle  -->
+    <meta name="twitter:title" content="Search List">
+    <meta name="twitter:description"
+        content="A collection of links to all the webpages that bibekchandsah have created.">
+    <meta name="twitter:image" content="https://bibekchandsah.github.io/bibekchandsah/assets/images/BCS_Full_Share.png">
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <!-- Bootstrap js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <!-- bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- font-awesome CDN Link fax (https://fontawesome.com/v4/icons/)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- animate in scroll Jsr (https://michalsnik.github.io/aos) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="searchBoxContainer">
+        <input type="text" class="form-control search-input" id="input-box" placeholder="Search anything here...."
+            autocomplete="off" aria-label="Search" oninput="toggleClearIcon()" onkeyup="search()">
+        <span class=" clear-icon"><i class="bi bi-x-lg" aria-hidden="true" onclick="clearSearchInput()"></i></span>
+        <button class="search-button d-block" onclick="searchGoogle()">Search</button>
+    </div>
+
+    <div class="accordion-body list-group" id="searchList">
+        <a href="https://www.google.com/" target="_blank" class="list-group-item list-group-item-action">Google home
+            page
+        </a>
+        <a href="https://mail.google.com/mail/u/0/?tab=8m#inbox" target="_blank"
+            class="list-group-item list-group-item-action">G-mail
+        </a>
+        <a href="https://dialogflow.cloud.google.com/#/agent/personal-assistant-cbub/intents" target="_blank"
+            class="list-group-item list-group-item-action">Google
+            Dialogflow
+        </a>
+        <a href="https://chrome.google.com/webstore/category/extensions" target="_blank"
+            class="list-group-item list-group-item-action">Google
+            Chrome store
+        </a>
+        <a href="https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home" target="_blank"
+            class="list-group-item list-group-item-action">Microsoft-Edge-Extensions
+        </a>
+    </div>
+    <script src="assets/js/script.js"></script>
+</body>
