@@ -63,7 +63,7 @@
 <body>
     <div class="searchBoxContainer">
         <input type="text" class="form-control search-input" id="input-box" placeholder="Search anything here...."
-            autocomplete="off" aria-label="Search" oninput="toggleClearIcon()" onkeyup="search()">
+            autocomplete="off" aria-label="Search">
         <span class=" clear-icon"><i class="bi bi-x-lg" aria-hidden="true" onclick="clearSearchInput()"></i></span>
         <button class="search-button d-block" onclick="searchGoogle()">Search</button>
     </div>
@@ -86,6 +86,9 @@
         <a href="https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home" target="_blank"
             class="list-group-item list-group-item-action">Microsoft-Edge-Extensions
         </a>
+    </div>
+    <div id="no-results-message" style="display:none; color: #888; padding: 1em;">
+      No results found.
     </div>
     <script src="assets/js/script.js"></script>
 </body>
