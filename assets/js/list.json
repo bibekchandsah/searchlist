@@ -266,5 +266,9 @@
   {
     "href": "https://example.com",
     "text": "My test"
+  },
+  {
+    "href": "https://example.com",
+    "text": "my test2"
   }
 ]
