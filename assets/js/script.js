@@ -134,16 +134,21 @@ function resetMultiLinkModal() {
 function createMultiLinkRow() {
     const row = document.createElement('div');
     row.className = 'multi-link-row row mb-2';
+    
+    // Get the current number of rows to set proper tabindex
+    const currentRowCount = document.querySelectorAll('.multi-link-row').length;
+    const baseTabIndex = (currentRowCount * 4) + 1; // 4 elements per row
+    
     row.innerHTML = `
         <div class="col-5">
-            <input type="text" class="form-control link-text" placeholder="Link text (e.g. My Project)">
+            <input type="text" class="form-control link-text" placeholder="Link text (e.g. My Project)" tabindex="${baseTabIndex}">
         </div>
         <div class="col-5">
-            <input type="url" class="form-control link-url" placeholder="Link URL (e.g. https://example.com)">
+            <input type="url" class="form-control link-url" placeholder="Link URL (e.g. https://example.com)" tabindex="${baseTabIndex + 1}">
         </div>
         <div class="col-2 d-flex align-items-center">
-            <button type="button" class="btn btn-success btn-sm add-row" title="Add another row"><i class="bi bi-plus"></i></button>
-            <button type="button" class="btn btn-danger btn-sm remove-row ms-1" title="Remove this row" style="display:none;"><i class="bi bi-dash"></i></button>
+            <button type="button" class="btn btn-success btn-sm add-row" title="Add another row" tabindex="${baseTabIndex + 2}"><i class="bi bi-plus"></i></button>
+            <button type="button" class="btn btn-danger btn-sm remove-row ms-1" title="Remove this row" style="display:none;" tabindex="${baseTabIndex + 3}"><i class="bi bi-dash"></i></button>
         </div>
     `;
     return row;
@@ -209,8 +214,29 @@ function showLoginModal(action) {
     messageDiv.textContent = '';
     
     if (window.bootstrap && window.bootstrap.Modal) {
-        new bootstrap.Modal(loginModal).show();
+        const modal = new bootstrap.Modal(loginModal);
+        modal.show();
+        
+        // Focus username field when modal is shown
+        loginModal.addEventListener('shown.bs.modal', function () {
+            usernameInput.focus();
+        }, { once: true });
     }
+    
+    // Add keyboard navigation
+    usernameInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            passwordInput.focus();
+        }
+    });
+    
+    passwordInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            login();
+        }
+    });
 }
 
 function login() {
@@ -275,20 +301,66 @@ function openAddLinkModal() {
     resetMultiLinkModal();
     const addLinkModal = document.getElementById('addLinkModal');
     if (window.bootstrap && window.bootstrap.Modal) {
-        new bootstrap.Modal(addLinkModal).show();
+        const modal = new bootstrap.Modal(addLinkModal);
+        modal.show();
+        
+        // Focus first field when modal is shown
+        addLinkModal.addEventListener('shown.bs.modal', function () {
+            const firstTextInput = addLinkModal.querySelector('.link-text');
+            if (firstTextInput) {
+                firstTextInput.focus();
+            }
+        }, { once: true });
     }
+    
+    // Add keyboard navigation for the form
+    addLinkModal.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.classList.contains('link-text')) {
+            e.preventDefault();
+            const urlInput = e.target.closest('.multi-link-row').querySelector('.link-url');
+            if (urlInput) {
+                urlInput.focus();
+            }
+        } else if (e.key === 'Enter' && e.target.classList.contains('link-url')) {
+            e.preventDefault();
+            const currentRow = e.target.closest('.multi-link-row');
+            const nextRow = currentRow.nextElementSibling;
+            
+            if (nextRow && nextRow.classList.contains('multi-link-row')) {
+                // Focus first field of next row
+                const nextTextInput = nextRow.querySelector('.link-text');
+                if (nextTextInput) {
+                    nextTextInput.focus();
+                }
+            } else {
+                // This is the last row, submit the form
+                addNewLinks();
+            }
+        }
+    });
 }
 
 function renderLinks() {
     const resultsBox = document.getElementById("searchList");
     resultsBox.innerHTML = '';
-    // Render static links
-    staticLinks.forEach((link, idx) => {
+    
+    // Combine static and dynamic links
+    const allLinks = [
+        ...staticLinks.map(link => ({ ...link, type: 'static', originalIndex: staticLinks.indexOf(link) })),
+        ...dynamicLinks.map(link => ({ ...link, type: 'dynamic', originalIndex: dynamicLinks.indexOf(link) }))
+    ];
+    
+    // Sort all links alphabetically by text
+    allLinks.sort((a, b) => a.text.localeCompare(b.text));
+    
+    // Render sorted links
+    allLinks.forEach((link) => {
         const a = document.createElement('a');
         a.href = link.href;
         a.textContent = link.text;
         a.className = 'list-group-item list-group-item-action';
         a.target = '_blank';
+        
         if (editMode) {
             a.style.position = 'relative';
             // Edit button
@@ -302,7 +374,7 @@ function renderLinks() {
             editBtn.title = 'Edit Link';
             editBtn.onclick = (e) => {
                 e.preventDefault();
-                openEditLinkModal('static', idx);
+                openEditLinkModal(link.type, link.originalIndex);
             };
             a.appendChild(editBtn);
             // Delete button
@@ -316,47 +388,7 @@ function renderLinks() {
             delBtn.title = 'Delete';
             delBtn.onclick = (e) => {
                 e.preventDefault();
-                confirmDelete('static', idx, link);
-            };
-            a.appendChild(delBtn);
-        }
-        resultsBox.appendChild(a);
-    });
-    // Render dynamic links
-    dynamicLinks.forEach((link, idx) => {
-        const a = document.createElement('a');
-        a.href = link.href;
-        a.textContent = link.text;
-        a.className = 'list-group-item list-group-item-action';
-        a.target = '_blank';
-        if (editMode) {
-            a.style.position = 'relative';
-            // Edit button
-            const editBtn = document.createElement('button');
-            editBtn.className = 'btn btn-warning btn-sm edit-link-btn';
-            editBtn.style.position = 'absolute';
-            editBtn.style.right = '42px';
-            editBtn.style.top = '50%';
-            editBtn.style.transform = 'translateY(-50%)';
-            editBtn.innerHTML = '<i class="bi bi-pencil"></i>';
-            editBtn.title = 'Edit Link';
-            editBtn.onclick = (e) => {
-                e.preventDefault();
-                openEditLinkModal('dynamic', idx);
-            };
-            a.appendChild(editBtn);
-            // Delete button
-            const delBtn = document.createElement('button');
-            delBtn.className = 'btn btn-danger btn-sm delete-link-btn';
-            delBtn.style.position = 'absolute';
-            delBtn.style.right = '5px';
-            delBtn.style.top = '50%';
-            delBtn.style.transform = 'translateY(-50%)';
-            delBtn.innerHTML = '<i class="bi bi-trash"></i>';
-            delBtn.title = 'Delete';
-            delBtn.onclick = (e) => {
-                e.preventDefault();
-                confirmDelete('dynamic', idx, link);
+                confirmDelete(link.type, link.originalIndex, link);
             };
             a.appendChild(delBtn);
         }
@@ -621,7 +653,7 @@ async function addNewLinks() {
         messageDiv.textContent = 'Please fill at least one valid link.';
         return;
     }
-    messageDiv.style.color = 'black';
+    messageDiv.style.color = 'whitesmoke';
     messageDiv.textContent = 'Adding...';
     try {
         // 1. Fetch the token from the provided URL

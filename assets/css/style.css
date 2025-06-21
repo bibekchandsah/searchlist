@@ -49,6 +49,9 @@ body {
 } */
 
 .searchBoxContainer {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     margin: 15px;
     padding: 5px 5px;
     border: 1px solid whitesmoke;
@@ -194,4 +197,9 @@ body {
     bottom: -3px;
     right: 0px;
     z-index: 1;
+}
+
+.edit-mode-btn:hover, .delete-link-btn:hover, .edit-link-btn:hover {
+    border-radius: 50%;
+    transition: 0.2s ease-in-out;
 }

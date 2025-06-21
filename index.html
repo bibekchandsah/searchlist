@@ -63,7 +63,7 @@
 <body>
     <div class="searchBoxContainer">
         <input type="text" class="form-control search-input" id="input-box" placeholder="Search anything here...."
-            autocomplete="off" aria-label="Search">
+            autocomplete="off" aria-label="Search" aria-autocomplete="off"  autofocus>
         <span class=" clear-icon"><i class="bi bi-x-lg" aria-hidden="true" onclick="clearSearchInput()"></i></span>
         <button class="search-button d-block" onclick="searchGoogle()">Search</button>
     </div>
@@ -91,14 +91,14 @@
               <div id="multi-link-rows">
                 <div class="multi-link-row row mb-2">
                   <div class="col-5">
-                    <input type="text" class="form-control link-text" placeholder="Link text (e.g. My Project)">
+                    <input type="text" class="form-control link-text" placeholder="Link text (e.g. My Project)" autofocus tabindex="1">
                   </div>
                   <div class="col-5">
-                    <input type="url" class="form-control link-url" placeholder="Link URL (e.g. https://example.com)">
+                    <input type="url" class="form-control link-url" placeholder="Link URL (e.g. https://example.com)" tabindex="2">
                   </div>
                   <div class="col-2 d-flex align-items-center">
-                    <button type="button" class="btn btn-success btn-sm add-row" title="Add another row"><i class="bi bi-plus"></i></button>
-                    <button type="button" class="btn btn-danger btn-sm remove-row ms-1" title="Remove this row" style="display:none;"><i class="bi bi-dash"></i></button>
+                    <button type="button" class="btn btn-success btn-sm add-row" title="Add another row" tabindex="3"><i class="bi bi-plus"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm remove-row ms-1" title="Remove this row" style="display:none;" tabindex="4"><i class="bi bi-dash"></i></button>
                   </div>
                 </div>
               </div>
@@ -106,8 +106,8 @@
             <div id="add-link-message" style="color: green; margin-top: 0.5em;"></div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="addNewLinks()">Add Link(s)</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="5">Close</button>
+            <button type="button" class="btn btn-primary" onclick="addNewLinks()" tabindex="6">Add Link(s)</button>
           </div>
         </div>
       </div>
@@ -150,17 +150,17 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" placeholder="Enter username">
+              <input type="text" class="form-control" id="username" placeholder="Enter username" autofocus tabindex="1">
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter password">
+              <input type="password" class="form-control" id="password" placeholder="Enter password" tabindex="2">
             </div>
             <div id="login-message" style="color: red; margin-top: 0.5em;"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+            <button type="button" class="btn btn-primary" onclick="login()" tabindex="3">Login</button>
           </div>
         </div>
       </div>
