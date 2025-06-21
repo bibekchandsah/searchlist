@@ -164,3 +164,34 @@ body {
     color: var(--white-color);
     font-weight: var(--font-bold);
 }
+
+
+/* -----------------------Modal------------------------------- */
+.modal-content {
+    background-color: #212121;
+}
+
+.modal-title {
+    color: whitesmoke;
+}
+
+.form-control {
+    background-color: #2c2c2c;
+    color: whitesmoke;
+}
+
+.btn-close:hover {
+    color: whitesmoke;
+    background-color: red;
+    transition: 0.2s ease-in-out;
+    border-radius: 50%;
+}
+
+
+/* -----------------------Edit Mode Button------------------------------- */
+.edit-container {
+    position: fixed;
+    bottom: -3px;
+    right: 0px;
+    z-index: 1;
+}
