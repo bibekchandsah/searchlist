@@ -266,5 +266,9 @@
   {
     "text": "test2",
     "href": "https://example. com"
+  },
+  {
+    "text": "Trashbin",
+    "href": "https://minestuff.netlify.app/"
   }
 ]
