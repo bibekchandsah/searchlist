@@ -270,5 +270,9 @@
   {
     "text": "Trashbin",
     "href": "https://minestuff.netlify.app/"
+  },
+  {
+    "text": "Feedback Dashboard",
+    "href": "https://feedashboard.streamlit.app/"
   }
 ]
